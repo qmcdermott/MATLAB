@@ -1,0 +1,23 @@
+function [ harm1 , harm2 ] = forshow5( n )
+%harmonic series 
+%faster way than the for loop way
+
+harm1 = ones(1,n);
+
+tic ;
+
+for i = 2:n
+    
+    harm1(i) = harm1(i-1) + 1/i;
+    
+end
+
+runtime1 = toc 
+
+tic ;
+
+harm2 = cumsum(1./(1:n));
+
+runtime2 = toc 
+
+err = max(abs(harm1-harm2))
