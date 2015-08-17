@@ -1,0 +1,34 @@
+function [c,f] = tempconv( degrees , indicator )
+%[C,F] = tempconv( DEGREE , INDICATOR )
+%Given a value or matrix of values for DEGREE and an INDICATOR
+%ONLY USE! 's' for Celcius and 't' for Fahrenheit, the funtion TEMPCONV 
+%will produce a value C & F in there respective temperature formats
+    
+if (indicator == 't')
+    c = (5/9)*(degrees-32);
+    f = degrees;
+
+elseif (indicator == 's')
+    f = (9/5)*(degrees) + 32;
+    c = degrees;
+
+else
+    
+ error('like you were told only use s or t')    
+    
+end
+
+x = linspace(-degrees,degrees*1.15,50);
+dc = (5/9)*(x-32);
+df = (9/5)*(x) + 32;
+plot(x,dc,'b')
+hold on
+plot(x,df,'b')
+hold on
+plot(c,f,'--rs','LineWidth',2,'MarkerEdgeColor','k','MarkerFaceColor','g','MarkerSize',10)
+title('TEMPCONV C vs F')
+xlabel('CELCIUS')
+ylabel('FAHRENHEIT')
+
+end
+
