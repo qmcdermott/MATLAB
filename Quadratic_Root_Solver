@@ -1,0 +1,33 @@
+function [ s , flag ] = quinquad( a , b , c )
+% [S , FLAG ] = QUINQUAD( A , B , C )
+% Flag: 0, 1, 2, 3 meaning none, one, two, or infinitely many solutions 
+% respectively
+
+if (a == 0)
+    if (b == 0)
+        s = [];
+        if (c == 0)
+            flag = 3;
+        else
+            flag = 0;
+        end
+    else 
+        s = -c/b;
+        flag = 1;
+    end
+elseif (b == 0 && c == 0 )
+        s(1) = 0;
+        s(2) = 0;
+        flag = 2;
+else
+    if (b >= 0)
+        s(1) = (-b - sqrt(b^2 - 4*a*c))/(2*a);
+        s(2) = c/(a*s(1));
+        flag = 2;        
+    else
+        s(1)= (-b + sqrt(b^2 - 4*a*c))/(2*a);
+        s(2) = c/(a*s(1));
+        flag = 2;
+    end
+end
+end
