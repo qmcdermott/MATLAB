@@ -1,0 +1,43 @@
+function  p  = qseq( x )
+% P = QSEQ( X )
+% P = # of steps to reach 1 using the collatz conjecture
+
+p = 0;
+while (x > 1)
+    
+    p = p + 1;
+        
+    if (rem(x,2) == 0)
+    
+        x = x/2;
+    
+    else
+        
+        x = 3*x+1;
+        
+    end
+end
+end
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+function [ p, m, c ] = quollatz( v )
+%[R, M, C] = QUOLLATZ( V )
+%V = a vector of any length without duplicates
+%P = vector of the number of steps for each entry in v
+%M = max number of steps for any value in v
+%C = # corresponding to max number of steps in v
+
+n = length(v);
+p = zeros(1,n);
+m = 0;
+c = 0;
+
+for i = 1:n
+    
+    p(i) = qseq(v(i))
+        
+end
+
+[m,index] = max(p)
+c = p(index)
+end
