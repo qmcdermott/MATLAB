@@ -1,0 +1,75 @@
+%[COUNT, LOCATION, SAFETY] = SAILORWALK1( P )
+%P = probability of the sailor makes it alive
+%T = steps attempted
+
+q = (1-p)/2; %probability of lurching left or right
+psq =  p + q; %sum of probabilities
+count = 0;
+leftright = 0;
+forward = 0;
+
+while (count < 2000)&&(abs(leftright) < 5)&&(forward < 50)    
+    
+    count = count + 1;
+    s = rand;
+    %simulation of the sailors progress
+    if (s < q)        
+        leftright = leftright + .25;
+    
+    elseif (psq < s)        
+        leftright = leftright - .25; 
+        
+    else        
+        forward = forward + .25;         
+    end
+    
+end
+
+safety = (forward == 50);
+
+end
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+function  probsurv  = sailorwalk2( attempts, p )
+%[  ] = SAILORWALK2( STEPS_ATTEMPTED, PROBABILITY )
+% Generates occurences and produces the probability of survival based upon
+% probability p of moving forwards
+occurrences = zeros(1,attempts);
+
+for i = 1:attempts
+    
+    occurrences(i) = sailorwalk1(p);
+    
+end
+
+probsurv = sum(occurrences)/attempts;
+    
+end
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+function finalprob = sailorwalk3( attempts, probinterval )
+%FINALPROB = SAILORWALK3( ATTEMPTS, PROBINTERVAL )
+%ATTEMPTS = # of trials for our lady sailor to attempt to reach the end of the jetty
+%PROBINTERVAL = the number of probability sub intervals between 0 and 1
+%PLOT gives graphical comparison of the probability s of reaching the ship
+%as a function of the probability p of moving forward
+
+trials = linspace(0,1,probinterval);
+goes = zeros(1,probinterval);
+
+for i = 1:probinterval
+    
+    goes(i) = sailorwalk2(attempts, trials(i));
+    
+end
+
+finalprob = goes;
+
+x = linspace(0,1,probinterval);
+plot(x,x,'k')
+hold on
+plot(x,finalprob,'r')
+
+end
